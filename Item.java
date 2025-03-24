@@ -14,16 +14,16 @@
 public class Item
 {
     // instance variables - replace the example below with your own
-    private int weight;
-    private String description;
+    public int weight;
+    public String description;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item()
+    public Item(String description, int weight)
     {
-        // initialise instance variables
-        x = 0;
+        this.description = description;
+        this.weight = weight;
     }
 
     /**
