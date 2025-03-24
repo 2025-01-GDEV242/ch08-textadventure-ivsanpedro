@@ -11,8 +11,8 @@
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Ivana San Pedro
+ * @version 2025.03.24
  */
 
 public class Game 
@@ -34,30 +34,48 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room NewYork,California,Maine,Florida,Alaska,Nevada,Idaho,Illinois;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        NewYork = new Room("in the New York subway");
+        California = new Room("in Disneyland");
+        Maine = new Room("inside a lighthouse");
+        Florida = new Room("at a beach");
+        Alaska = new Room("in the computing admin office");
+        Nevada = new Room("at the Grand Canyon");
+        Idaho = new Room("in a potato farm");
+        Illinois = new Room("right next to Cloud Gate");
         
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        Florida.setExit("south", Nevada);
+        Florida.setExit("east", NewYork);
+        
+        NewYork.setExit("east", California);
+        NewYork.setExit("south", Idaho);
+        NewYork.setExit("west", Florida);
 
-        theater.setExit("west", outside);
+        California.setExit("west", NewYork);
+        California.setExit("south", Maine);
+        California.setExit("east", Illinois);
 
-        pub.setExit("east", outside);
+        Illinois.setExit("west", California);
+        Illinois.setExit("south", Alaska);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        Nevada.setExit("north", Florida);
+        Nevada.setExit("east", Idaho);
 
-        office.setExit("west", lab);
+        Idaho.setExit("west", Nevada);
+        Idaho.setExit("east", Maine);
+        Idaho.setExit("north", NewYork);
+        
+        Maine.setExit("west", Idaho);
+        Maine.setExit("east", Alaska);
+        Maine.setExit("north", California);
+        
+        Alaska.setExit("west", Maine);
+        Alaska.setExit("north", Illinois);
 
-        currentRoom = outside;  // start game outside
+        currentRoom = NewYork;  // start game in NewYork
     }
 
     /**
