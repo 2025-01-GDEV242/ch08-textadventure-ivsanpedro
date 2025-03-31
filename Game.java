@@ -36,7 +36,26 @@ public class Game
     {
         Room NewYork,California,Maine,Florida,Alaska,Nevada,Idaho,Illinois;
       
-        // create the rooms
+        //Create the items
+        //NY
+        Item hotdog = new Item("hotdog", "hotdog with mustard and ketchup", 2);
+        //CA
+        Item smoothie = new Item("smoothie", "smoothie from Erewhon", 2);
+        //FL
+        Item towel = new Item("beach towel", "blue and white striped beach towel", 3);
+        //Idaho
+        Item potato = new Item("potato", "russet potato", 1);
+        //Nevada
+        Item boulder = new Item("boulder", "big boulder", 300);
+        //Illinois
+        Item pizza = new Item("pizza", "deep dish pizza", 2);
+        //Alaska
+        Item icicle = new Item("icicle", "large sharp icicle", 4);
+        //Maine
+        Item lobster = new Item("lobster", "red lobster", 5);
+        
+        
+        // Create the rooms
         NewYork = new Room("in the New York subway");
         California = new Room("in Disneyland");
         Maine = new Room("inside a lighthouse");
@@ -150,7 +169,7 @@ public class Game
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("around America.");
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();

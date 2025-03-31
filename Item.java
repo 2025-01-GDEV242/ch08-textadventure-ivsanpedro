@@ -15,7 +15,7 @@ public class Item
 {
     // instance variables - replace the example below with your own
     public int weight;
-    public String description;
+    public String name, description;
 
     /**
      * Constructor for objects of class Item
@@ -32,9 +32,22 @@ public class Item
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-    public int sampleMethod(int y)
+    public Item (String n, String d, int w)
     {
-        // put your code here
-        return x + y;
+        name = n;
+        description = d;
+        weight = w;
     }
+
+    /**
+     * This method returns the weight of the items.
+     *
+     * @param none
+     * @return weight: weight of the item
+     */
+    public String getItemName()
+    {
+        return name;
+    }
+
 }
