@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,6 +20,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private ArrayList<Item> items;
         
     /**
      * Create the game and initialise its internal map.
@@ -36,6 +38,7 @@ public class Game
     {
         Room NewYork,California,Maine,Florida,Alaska,Nevada,Idaho,Illinois;
       
+        items = new ArrayList<Item>();
         //Create the items
         //NY
         Item hotdog = new Item("hotdog", "hotdog with mustard and ketchup", 2);
@@ -56,14 +59,14 @@ public class Game
         
         
         // Create the rooms
-        NewYork = new Room("in the New York subway");
-        California = new Room("in Disneyland");
-        Maine = new Room("inside a lighthouse");
-        Florida = new Room("at a beach");
-        Alaska = new Room("in the computing admin office");
-        Nevada = new Room("at the Grand Canyon");
-        Idaho = new Room("in a potato farm");
-        Illinois = new Room("right next to Cloud Gate");
+        NewYork = new Room("in the New York subway", hotdog);
+        California = new Room("in Los Angeles", smoothie);
+        Maine = new Room("inside a lighthouse in Maine", lobster);
+        Florida = new Room("at a beach in Florida", towel);
+        Alaska = new Room("at a National Park", icicle);
+        Nevada = new Room("at the Grand Canyon",boulder);
+        Idaho = new Room("in a potato farm in Idaho", potato);
+        Illinois = new Room("right next to Cloud Gate", pizza);
         
         // initialise room exits
         Florida.setExit("south", Nevada);
