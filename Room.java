@@ -28,10 +28,11 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, Item i) 
+    public Room(String description, Item i1, Item i2) 
     {
         this.description = description;
-        this.item = i;
+        this.item = i1;
+        this.item = i2;
         exits = new HashMap<>();
     }
 

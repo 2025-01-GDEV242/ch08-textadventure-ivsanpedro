@@ -42,10 +42,13 @@ public class Game
         //Create the items
         //NY
         Item hotdog = new Item("hotdog", "hotdog with mustard and ketchup", 2);
+        Item MetroCard = new Item("MetroCard", "MetroCard for the subway", 1);
         //CA
         Item smoothie = new Item("smoothie", "smoothie from Erewhon", 2);
+        Item sunglasses = new Item("sunglasses", "Prada sunglasses", 1);
         //FL
         Item towel = new Item("beach towel", "blue and white striped beach towel", 3);
+        Item umbrella = new Item("umbrella", "raindbow beach umbrella", 10);
         //Idaho
         Item potato = new Item("potato", "russet potato", 1);
         //Nevada
@@ -59,14 +62,14 @@ public class Game
         
         
         // Create the rooms
-        NewYork = new Room("in the New York subway", hotdog);
-        California = new Room("in Los Angeles", smoothie);
-        Maine = new Room("inside a lighthouse in Maine", lobster);
-        Florida = new Room("at a beach in Florida", towel);
-        Alaska = new Room("at a National Park", icicle);
-        Nevada = new Room("at the Grand Canyon",boulder);
-        Idaho = new Room("in a potato farm in Idaho", potato);
-        Illinois = new Room("right next to Cloud Gate", pizza);
+        NewYork = new Room("in the New York subway", hotdog, MetroCard);
+        California = new Room("in Los Angeles", smoothie, sunglasses);
+        Maine = new Room("inside a lighthouse in Maine", lobster, null);
+        Florida = new Room("at a beach in Florida", towel, umbrella);
+        Alaska = new Room("at a National Park", icicle, null);
+        Nevada = new Room("at the Grand Canyon",boulder, null);
+        Idaho = new Room("in a potato farm in Idaho", potato, null);
+        Illinois = new Room("right next to Cloud Gate", pizza, null);
         
         // initialise room exits
         Florida.setExit("south", Nevada);
