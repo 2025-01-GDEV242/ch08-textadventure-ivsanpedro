@@ -40,14 +40,14 @@ public class Item
     }
 
     /**
-     * This method returns the weight of the items.
+     * This method returns the description of the item.
      *
      * @param none
-     * @return weight: weight of the item
+     * @return description: description of the item
      */
-    public String getItemName()
+    public String getDescription()
     {
-        return name;
+        return description;
     }
 
 }

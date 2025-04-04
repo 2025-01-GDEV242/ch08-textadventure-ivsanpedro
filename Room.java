@@ -19,8 +19,12 @@ import java.util.Iterator;
 public class Room 
 {
     private String description;
-    private Item item;
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    private Item item1;
+    private Item item2;
+    
+    private HashMap<String, Room> exits; 
+    
+    // stores exits of this room.
 
     /**
      * Create a room described "description". Initially, it has
@@ -28,11 +32,13 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, Item i1, Item i2) 
+    public Room(String description, Item item1, Item item2) 
     {
         this.description = description;
-        this.item = i1;
-        this.item = i2;
+        item1 = this.item1;
+        item2 = this.item2;
+        //String desc1 = item2.getDescription();
+        
         exits = new HashMap<>();
     }
 
@@ -44,6 +50,16 @@ public class Room
     public void setExit(String direction, Room neighbor) 
     {
         exits.put(direction, neighbor);
+    }
+    
+    
+    /**
+     * Returns true if the current room has an item
+     * @param none
+     * @return item: current item in the room
+     */
+    public boolean hasItem(){
+        return item2 != null;
     }
 
     /**
@@ -63,8 +79,16 @@ public class Room
      */
     public String getLongDescription()
     {
-        //return "You are " + description + ".\n" + getExitString();
-        return "You are " + description + ".\n" + "Items in room: " + item.description + ".\n" + getExitString();
+        //return "You are " + description + ".\n" + "Item in room: " + item.description + ".\n" + getExitString();
+        String des = "";
+        if ((item2 != null) && (item1 == null)){
+            des = "Current Room: " + description + "\n Item in room: " + item1.getDescription() + ".\n" + getExitString();
+        }
+        else if ((item2 != null) && (item1 != null))
+        {
+            des = "You are " + description + ".\n" + "Items in room: " + item1.getDescription() + " " + item2.getDescription() +".\n" + getExitString();
+        }
+        return des;
     }
 
     /**

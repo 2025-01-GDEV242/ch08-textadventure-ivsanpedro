@@ -21,7 +21,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private ArrayList<Item> items;
-        
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -37,7 +37,7 @@ public class Game
     private void createRooms()
     {
         Room NewYork,California,Maine,Florida,Alaska,Nevada,Idaho,Illinois;
-      
+
         items = new ArrayList<Item>();
         //Create the items
         //NY
@@ -59,8 +59,7 @@ public class Game
         Item icicle = new Item("icicle", "large sharp icicle", 4);
         //Maine
         Item lobster = new Item("lobster", "red lobster", 5);
-        
-        
+
         // Create the rooms
         NewYork = new Room("in the New York subway", hotdog, MetroCard);
         California = new Room("in Los Angeles", smoothie, sunglasses);
@@ -70,11 +69,11 @@ public class Game
         Nevada = new Room("at the Grand Canyon",boulder, null);
         Idaho = new Room("in a potato farm in Idaho", potato, null);
         Illinois = new Room("right next to Cloud Gate", pizza, null);
-        
+
         // initialise room exits
         Florida.setExit("south", Nevada);
         Florida.setExit("east", NewYork);
-        
+
         NewYork.setExit("east", California);
         NewYork.setExit("south", Idaho);
         NewYork.setExit("west", Florida);
@@ -92,11 +91,11 @@ public class Game
         Idaho.setExit("west", Nevada);
         Idaho.setExit("east", Maine);
         Idaho.setExit("north", NewYork);
-        
+
         Maine.setExit("west", Idaho);
         Maine.setExit("east", Alaska);
         Maine.setExit("north", California);
-        
+
         Alaska.setExit("west", Maine);
         Alaska.setExit("north", Illinois);
 
@@ -112,7 +111,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -150,6 +149,10 @@ public class Game
                 System.out.println("I don't know what you mean...");
                 break;
 
+            case LOOK:
+                printLook();
+                break;
+                
             case HELP:
                 printHelp();
                 break;
@@ -181,6 +184,18 @@ public class Game
         parser.showCommands();
     }
 
+    /**
+     * "Look" was entered. 
+     * Print out the setting of the room the player is currently in. 
+     */
+    private void printLook() 
+    {
+        System.out.println("You are " + currentRoom.getShortDescription());
+        System.out.println();
+        System.out.println("Your command words are:");
+        parser.showCommands();
+    }
+    
     /** 
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
