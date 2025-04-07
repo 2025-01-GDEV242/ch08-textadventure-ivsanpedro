@@ -29,6 +29,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        items = new ArrayList<Item>();
     }
 
     /**
@@ -38,7 +39,6 @@ public class Game
     {
         Room NewYork,California,Maine,Florida,Alaska,Nevada,Idaho,Illinois;
 
-        items = new ArrayList<Item>();
         //Create the items
         //NY
         Item hotdog = new Item("hotdog", "hotdog with mustard and ketchup", 2);
@@ -59,6 +59,7 @@ public class Game
         Item icicle = new Item("icicle", "large sharp icicle", 4);
         //Maine
         Item lobster = new Item("lobster", "red lobster", 5);
+        
 
         // Create the rooms
         NewYork = new Room("in the New York subway", hotdog, MetroCard);

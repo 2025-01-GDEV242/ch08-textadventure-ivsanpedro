@@ -19,9 +19,9 @@ import java.util.Iterator;
 public class Room 
 {
     private String description;
-    private Item item1;
-    private Item item2;
-    
+    public Item item1;
+    public Item item2;
+    //private HashSet<Item> items;
     private HashMap<String, Room> exits; 
     
     // stores exits of this room.
@@ -40,6 +40,7 @@ public class Room
         //String desc1 = item2.getDescription();
         
         exits = new HashMap<>();
+        //items = new HashSet<>();
     }
 
     /**
@@ -79,17 +80,16 @@ public class Room
      */
     public String getLongDescription()
     {
-        //return "You are " + description + ".\n" + "Item in room: " + item.description + ".\n" + getExitString();
-        String des = "";
-        if ((item2 != null) && (item1 == null)){
-            des = "Current Room: " + description + "\n Item in room: " + item1.getDescription() + ".\n" + getExitString();
+        String desc = "Current room: " + description + ".\n" + "Items in room: \n" + getExitString();
+        if ((item1 != null) && (item2 == null)){
+            return desc + item1.getItemName();
         }
-        else if ((item2 != null) && (item1 != null))
-        {
-            des = "You are " + description + ".\n" + "Items in room: " + item1.getDescription() + " " + item2.getDescription() +".\n" + getExitString();
+        else{
+            return desc;
         }
-        return des;
     }
+        
+    
 
     /**
      * Return a string describing the room's exits, for example
@@ -116,5 +116,16 @@ public class Room
     {
         return exits.get(direction);
     }
-}
+    
+    // /**
+     // * Method removeItem
+     // *
+     // * @param name 
+     // * @return The return value
+     // */
+    // public Item removeItem(String name){
+        // return items.remove(name);
+    // }
+    }
+
 
