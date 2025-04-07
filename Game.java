@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
+    public Room currentRoom;
     private ArrayList<Item> items;
 
     /**

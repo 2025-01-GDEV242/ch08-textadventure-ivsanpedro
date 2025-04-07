@@ -21,9 +21,8 @@ public class Room
     private String description;
     public Item item1;
     public Item item2;
-    //private HashSet<Item> items;
     private HashMap<String, Room> exits; 
-    
+
     // stores exits of this room.
 
     /**
@@ -35,10 +34,10 @@ public class Room
     public Room(String description, Item item1, Item item2) 
     {
         this.description = description;
-        item1 = this.item1;
-        item2 = this.item2;
+        this.item1 = item1;
+        this.item2 = item2;
         //String desc1 = item2.getDescription();
-        
+
         exits = new HashMap<>();
         //items = new HashSet<>();
     }
@@ -52,8 +51,7 @@ public class Room
     {
         exits.put(direction, neighbor);
     }
-    
-    
+
     /**
      * Returns true if the current room has an item
      * @param none
@@ -80,16 +78,33 @@ public class Room
      */
     public String getLongDescription()
     {
-        String desc = "Current room: " + description + ".\n" + "Items in room: \n" + getExitString();
-        if ((item1 != null) && (item2 == null)){
-            return desc + item1.getItemName();
+        String desc = "Current room: " + description + ".\n";
+        String exit = "\n" + getExitString();
+        if (item1 == null){
+            return desc  + "Items in room: " + exit;
         }
-        else{
-            return desc;
+        else if (item2 == null) 
+        {
+            return desc + "Items in room: " +  item1.getItemName() + exit;
         }
+        else if ((item1 != null) && (item2 != null))
+        {
+            return desc + "Items in room: " + item1.getItemName() + "  " + item2.getItemName() + exit;
+        }
+        return desc;
     }
-        
     
+    /**
+     * Adds a new item to a room
+     *
+     * @param  item: item to be added 
+     * @return none
+     */
+    public void addItem(Item item)
+    {
+        this.item2 = item;
+    }
+
 
     /**
      * Return a string describing the room's exits, for example
@@ -117,15 +132,24 @@ public class Room
         return exits.get(direction);
     }
     
-    // /**
-     // * Method removeItem
-     // *
-     // * @param name 
-     // * @return The return value
-     // */
-    // public Item removeItem(String name){
-        // return items.remove(name);
-    // }
+    /**
+     * Returns the item that was made
+     *
+     * @param: none
+     * @return item: returns the item in the room
+     */
+    public Item getItem1(){
+        return item1;
     }
-
+    
+    /**
+     * Returns the item that was made
+     *
+     * @param: none
+     * @return item: returns the item in the room
+     */
+    public Item getItem2(){
+        return item2;
+    }
+}
 
