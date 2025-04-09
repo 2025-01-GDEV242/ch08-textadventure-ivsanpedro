@@ -21,7 +21,10 @@ public class Game
     private Parser parser;
     public Room currentRoom;
     private ArrayList<Item> items;
-
+    public static void main(String[] args){
+        Game game = new Game();
+        game.play();
+    }
     /**
      * Create the game and initialise its internal map.
      */
