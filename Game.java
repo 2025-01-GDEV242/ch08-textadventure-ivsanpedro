@@ -22,6 +22,13 @@ public class Game
     public Room currentRoom;
     private ArrayList<Item> items;
     public ArrayList<Room> previousRooms;
+    
+    /**
+     * Main method to the Game
+     * Allows the user to generate the game outside of BlueJ
+     *
+     * @param args 
+     */
     public static void main(String[] args){
         Game game = new Game();
         game.play();
@@ -234,10 +241,13 @@ public class Game
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * "back" was entered
+     * 
+     * Try to exit current room and enter the previous room. 
+     * If there is a previous room, enter the
+     * room, otherwise print an error message.
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @param  none
      */
     private void goBack()
     {

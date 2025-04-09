@@ -133,20 +133,20 @@ public class Room
     }
     
     /**
-     * Returns the item that was made
+     * Returns the first item that was made
      *
      * @param: none
-     * @return item: returns the item in the room
+     * @return item: returns the first item in the room
      */
     public Item getItem1(){
         return item1;
     }
     
     /**
-     * Returns the item that was made
+     * Returns the second item that was made
      *
      * @param: none
-     * @return item: returns the item in the room
+     * @return item: returns the second item in the room
      */
     public Item getItem2(){
         return item2;
