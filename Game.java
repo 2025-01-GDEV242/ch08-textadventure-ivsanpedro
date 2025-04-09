@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -11,15 +12,28 @@
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Ivana San Pedro
+ * @version 2025.03.24
  */
 
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-        
+    public Room currentRoom;
+    private ArrayList<Item> items;
+    public ArrayList<Room> previousRooms;
+    
+    /**
+     * Main method to the Game
+     * Allows the user to generate the game outside of BlueJ
+     *
+     * @param args 
+     */
+    public static void main(String[] args){
+        Game game = new Game();
+        game.play();
+    }
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -27,6 +41,8 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        items = new ArrayList<Item>();
+        previousRooms = new ArrayList<Room>();
     }
 
     /**
@@ -34,30 +50,69 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
-      
-        // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
+        Room NewYork,California,Maine,Florida,Alaska,Nevada,Idaho,Illinois;
+
+        //Create the items
+        //NY
+        Item hotdog = new Item("hotdog", "hotdog with mustard and ketchup", 2);
+        Item MetroCard = new Item("MetroCard", "MetroCard for the subway", 1);
+        //CA
+        Item smoothie = new Item("smoothie", "smoothie from Erewhon", 2);
+        Item sunglasses = new Item("sunglasses", "Prada sunglasses", 1);
+        //FL
+        Item towel = new Item("beach towel", "blue and white striped beach towel", 3);
+        Item umbrella = new Item("umbrella", "raindbow beach umbrella", 10);
+        //Idaho
+        Item potato = new Item("potato", "russet potato", 1);
+        //Nevada
+        Item boulder = new Item("boulder", "big boulder", 300);
+        //Illinois
+        Item pizza = new Item("pizza", "deep dish pizza", 2);
+        //Alaska
+        Item icicle = new Item("icicle", "large sharp icicle", 4);
+        //Maine
+        Item lobster = new Item("lobster", "red lobster", 5);
+
+        // Create the rooms
+        NewYork = new Room("in the New York subway", hotdog, MetroCard);
+        California = new Room("in Los Angeles", smoothie, sunglasses);
+        Maine = new Room("inside a lighthouse in Maine", lobster, null);
+        Florida = new Room("at a beach in Florida", towel, umbrella);
+        Alaska = new Room("at a National Park", icicle, null);
+        Nevada = new Room("at the Grand Canyon",boulder, null);
+        Idaho = new Room("in a potato farm in Idaho", potato, null);
+        Illinois = new Room("right next to Cloud Gate", pizza, null);
+
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        Florida.setExit("south", Nevada);
+        Florida.setExit("east", NewYork);
 
-        theater.setExit("west", outside);
+        NewYork.setExit("east", California);
+        NewYork.setExit("south", Idaho);
+        NewYork.setExit("west", Florida);
 
-        pub.setExit("east", outside);
+        California.setExit("west", NewYork);
+        California.setExit("south", Maine);
+        California.setExit("east", Illinois);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        Illinois.setExit("west", California);
+        Illinois.setExit("south", Alaska);
 
-        office.setExit("west", lab);
+        Nevada.setExit("north", Florida);
+        Nevada.setExit("east", Idaho);
 
-        currentRoom = outside;  // start game outside
+        Idaho.setExit("west", Nevada);
+        Idaho.setExit("east", Maine);
+        Idaho.setExit("north", NewYork);
+
+        Maine.setExit("west", Idaho);
+        Maine.setExit("east", Alaska);
+        Maine.setExit("north", California);
+
+        Alaska.setExit("west", Maine);
+        Alaska.setExit("north", Illinois);
+
+        currentRoom = NewYork;  // start game in NewYork
     }
 
     /**
@@ -69,7 +124,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -107,12 +162,20 @@ public class Game
                 System.out.println("I don't know what you mean...");
                 break;
 
+            case LOOK:
+                printLook();
+                break;
+
             case HELP:
                 printHelp();
                 break;
 
             case GO:
                 goRoom(command);
+                break;
+
+            case BACK:
+                goBack();
                 break;
 
             case QUIT:
@@ -132,7 +195,19 @@ public class Game
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("around America.");
+        System.out.println();
+        System.out.println("Your command words are:");
+        parser.showCommands();
+    }
+
+    /**
+     * "Look" was entered. 
+     * Print out the setting of the room the player is currently in. 
+     */
+    private void printLook() 
+    {
+        System.out.println("You are " + currentRoom.getShortDescription());
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
@@ -159,9 +234,33 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            previousRooms.add(currentRoom);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
+    }
+
+    /**
+     * "back" was entered
+     * 
+     * Try to exit current room and enter the previous room. 
+     * If there is a previous room, enter the
+     * room, otherwise print an error message.
+     *
+     * @param  none
+     */
+    private void goBack()
+    {
+        if (previousRooms.size() == 0){
+            System.out.println("There is no room to go back to.");
+        }
+        else
+        {
+            currentRoom = previousRooms.get(previousRooms.size()-1);
+            previousRooms.remove(previousRooms.size()-1);
+            System.out.println(currentRoom.getLongDescription());
+        }
+
     }
 
     /** 

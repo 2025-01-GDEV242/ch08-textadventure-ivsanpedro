@@ -12,14 +12,18 @@ import java.util.Iterator;
  * connected to other rooms via exits.  For each existing exit, the room 
  * stores a reference to the neighboring room.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * * @author Ivana San Pedro
+ * @version 2025.03.24
  */
 
 public class Room 
 {
     private String description;
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    public Item item1;
+    public Item item2;
+    private HashMap<String, Room> exits; 
+
+    // stores exits of this room.
 
     /**
      * Create a room described "description". Initially, it has
@@ -27,10 +31,15 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description, Item item1, Item item2) 
     {
         this.description = description;
+        this.item1 = item1;
+        this.item2 = item2;
+        //String desc1 = item2.getDescription();
+
         exits = new HashMap<>();
+        //items = new HashSet<>();
     }
 
     /**
@@ -41,6 +50,15 @@ public class Room
     public void setExit(String direction, Room neighbor) 
     {
         exits.put(direction, neighbor);
+    }
+
+    /**
+     * Returns true if the current room has an item
+     * @param none
+     * @return item: current item in the room
+     */
+    public boolean hasItem(){
+        return item2 != null;
     }
 
     /**
@@ -60,8 +78,33 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        String desc = "Current room: " + description + ".\n";
+        String exit = "\n" + getExitString();
+        if (item1 == null){
+            return desc  + "Items in room: " + exit;
+        }
+        else if (item2 == null) 
+        {
+            return desc + "Items in room: " +  item1.getItemName() + exit;
+        }
+        else if ((item1 != null) && (item2 != null))
+        {
+            return desc + "Items in room: " + item1.getItemName() + "  " + item2.getItemName() + exit;
+        }
+        return desc;
     }
+    
+    /**
+     * Adds a new item to a room
+     *
+     * @param  item: item to be added 
+     * @return none
+     */
+    public void addItem(Item item)
+    {
+        this.item2 = item;
+    }
+
 
     /**
      * Return a string describing the room's exits, for example
@@ -87,6 +130,26 @@ public class Room
     public Room getExit(String direction) 
     {
         return exits.get(direction);
+    }
+    
+    /**
+     * Returns the first item that was made
+     *
+     * @param: none
+     * @return item: returns the first item in the room
+     */
+    public Item getItem1(){
+        return item1;
+    }
+    
+    /**
+     * Returns the second item that was made
+     *
+     * @param: none
+     * @return item: returns the second item in the room
+     */
+    public Item getItem2(){
+        return item2;
     }
 }
 
