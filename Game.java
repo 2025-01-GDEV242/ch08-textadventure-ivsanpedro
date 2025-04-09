@@ -21,10 +21,12 @@ public class Game
     private Parser parser;
     public Room currentRoom;
     private ArrayList<Item> items;
+    public ArrayList<Room> previousRooms;
     public static void main(String[] args){
         Game game = new Game();
         game.play();
     }
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -33,6 +35,7 @@ public class Game
         createRooms();
         parser = new Parser();
         items = new ArrayList<Item>();
+        previousRooms = new ArrayList<Room>();
     }
 
     /**
@@ -62,7 +65,6 @@ public class Game
         Item icicle = new Item("icicle", "large sharp icicle", 4);
         //Maine
         Item lobster = new Item("lobster", "red lobster", 5);
-        
 
         // Create the rooms
         NewYork = new Room("in the New York subway", hotdog, MetroCard);
@@ -156,13 +158,17 @@ public class Game
             case LOOK:
                 printLook();
                 break;
-                
+
             case HELP:
                 printHelp();
                 break;
 
             case GO:
                 goRoom(command);
+                break;
+
+            case BACK:
+                goBack();
                 break;
 
             case QUIT:
@@ -199,7 +205,7 @@ public class Game
         System.out.println("Your command words are:");
         parser.showCommands();
     }
-    
+
     /** 
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
@@ -221,9 +227,30 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            previousRooms.add(currentRoom);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
+    }
+
+    /**
+     * An example of a method - replace this comment with your own
+     *
+     * @param  y  a sample parameter for a method
+     * @return    the sum of x and y
+     */
+    private void goBack()
+    {
+        if (previousRooms.size() == 0){
+            System.out.println("There is no room to go back to.");
+        }
+        else
+        {
+            currentRoom = previousRooms.get(previousRooms.size()-1);
+            previousRooms.remove(previousRooms.size()-1);
+            System.out.println(currentRoom.getLongDescription());
+        }
+
     }
 
     /** 
